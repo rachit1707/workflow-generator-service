@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1ge39q3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="Unlock_User_Account_Poc" name="Unlock User Account" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_06p701j</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_06p701j" sourceRef="StartEvent_1" targetRef="Activity_19ql755" />
+    <bpmn:endEvent id="Event_1xqddh0" name="End">
+      <bpmn:incoming>Flow_0i29nba</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1xmkwa8" sourceRef="Event_1p6fdu3" targetRef="Activity_1mddwri" />
+    <bpmn:intermediateCatchEvent id="Event_1p6fdu3">
+      <bpmn:incoming>Flow_10kr45z</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xmkwa8</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0d1tdud">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0i29nba" sourceRef="Activity_1mddwri" targetRef="Event_1xqddh0" />
+    <bpmn:scriptTask id="Activity_1mddwri" name="Update user account unlock count" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1xmkwa8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i29nba</bpmn:outgoing>
+      <bpmn:script>println('Account is unlocked')</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0h4qydc" sourceRef="Activity_19ql755" targetRef="Activity_1pp82xv" />
+    <bpmn:userTask id="Activity_19ql755" name="Unlock User Account">
+      <bpmn:incoming>Flow_06p701j</bpmn:incoming>
+      <bpmn:outgoing>Flow_0h4qydc</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="Activity_1pp82xv" name="User Login Details check" scriptFormat="groovy">
+      <bpmn:incoming>Flow_0h4qydc</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s1g3bl</bpmn:outgoing>
+      <bpmn:script>println('User data retrieved for unlocking account')</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1s1g3bl" sourceRef="Activity_1pp82xv" targetRef="Activity_0xszs8m" />
+    <bpmn:scriptTask id="Activity_0xszs8m" name="Unlock user account" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1s1g3bl</bpmn:incoming>
+      <bpmn:outgoing>Flow_10kr45z</bpmn:outgoing>
+      <bpmn:script>println('Account is unlocked')</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_10kr45z" sourceRef="Activity_0xszs8m" targetRef="Event_1p6fdu3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Unlock_User_Account_Poc">
+      <bpmndi:BPMNEdge id="Flow_0h4qydc_di" bpmnElement="Flow_0h4qydc">
+        <di:waypoint x="330" y="117" />
+        <di:waypoint x="390" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i29nba_di" bpmnElement="Flow_0i29nba">
+        <di:waypoint x="890" y="117" />
+        <di:waypoint x="962" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xmkwa8_di" bpmnElement="Flow_1xmkwa8">
+        <di:waypoint x="738" y="117" />
+        <di:waypoint x="790" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10kr45z_di" bpmnElement="Flow_10kr45z">
+        <di:waypoint x="650" y="117" />
+        <di:waypoint x="702" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1s1g3bl_di" bpmnElement="Flow_1s1g3bl">
+        <di:waypoint x="490" y="117" />
+        <di:waypoint x="550" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06p701j_di" bpmnElement="Flow_06p701j">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="230" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="142" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1xqddh0_di" bpmnElement="Event_1xqddh0">
+        <dc:Bounds x="962" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="970" y="142" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09jsvw1_di" bpmnElement="Activity_1pp82xv">
+        <dc:Bounds x="390" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nl6rv3_di" bpmnElement="Activity_0xszs8m">
+        <dc:Bounds x="550" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1iqmu2k_di" bpmnElement="Event_1p6fdu3">
+        <dc:Bounds x="702" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cfmfwu_di" bpmnElement="Activity_1mddwri">
+        <dc:Bounds x="790" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vinq1w_di" bpmnElement="Activity_19ql755">
+        <dc:Bounds x="230" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

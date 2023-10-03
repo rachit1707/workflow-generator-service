@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "text": "<h2>Please add steps for creating workflow</h2>",
+      "type": "text",
+      "id": "Field_0jmx0cq",
+      "layout": {
+        "row": "Row_0pgidcg"
+      }
+    },
+    {
+      "label": "Topic",
+      "type": "textfield",
+      "id": "Field_0wldls5",
+      "key": "topic",
+      "disabled": true,
+      "layout": {
+        "row": "Row_07wdp8e"
+      },
+      "appearance": {},
+      "defaultValue": "${execution.getVariable(\"topic\")}",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Please enter step in below area",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ly9hu0",
+        "columns": null
+      },
+      "id": "Field_1suno24",
+      "key": "gptQuery"
+    }
+  ],
+  "type": "default",
+  "id": "service_desk_task",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.2.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

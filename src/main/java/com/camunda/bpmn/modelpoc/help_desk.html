@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Desk</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+function timeout(delay, func) {
+	var response="";
+	window.setTimeout(function(){
+		$('#query-output').attr('style','display: inline-grid')
+		$('#query-output').append('<div><b>Smart Desk:</b>Thank you for reaching out to helpdesk! Kindly give a moment to chek your issue</div><br/>')
+    
+		window.setTimeout(function(){
+			$.post("http://localhost:8082/queryRequest",{data:'unlock'},function(response){
+				console.log("Data===: " + response);
+				response=response;
+				
+				$('#query-output').append('<div><b>Smart Desk:</b>'+response+'</div><br/>')
+			});
+			
+			
+				
+			
+		}, 5000);
+		$('#submit-query').removeAttr('disabled')
+	}, 2000);
+}
+
+function sendQuery() {
+	
+	query = $('#query').val()
+	if(query == '') {
+		alert('Please enter your query!')
+		return
+	}
+	$('#submit-query').attr('disabled','true')
+	
+	timeout()
+}
+
+
+</script>
+<style type="text/css">
+#convStart{
+display: inline-grid;
+padding-bottom: 20px;
+}
+#headingLabel{
+padding: 20px;
+border-radius: 20px;
+}
+#query-output{
+padding-bottom: 20px;
+}
+#chatspace{
+    font-family: cursive;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+<div style="width: 500px;">
+	<div id="headingLabel"style="background: blue; color: white; font-weight: bold; font-size: x-large;">Smart Desk <sub>Helpdesk Next Gen...</sub></div>
+	<br/>
+	<div id="chatspace">
+		<div id="query-output" style="display: none">
+			
+		</div>
+		<div id="convStart">
+		<label style="padding-bottom: 10px;">How may I help you?</label>
+		
+		<textarea id="query"  style="width: 400px"></textarea>
+		<br/>
+		<input type="button" id="submit-query" name="submit-query" onclick="sendQuery()" value="Submit Query" style="width: 100px">
+		</div>
+	</div>
+</div>
+</body>
+</html>

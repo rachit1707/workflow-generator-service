@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Camunda Workflow Requirement Details</title>
+<script type='text/javascript'>
+
+	function addFields() {
+		var div = document.getElementById("dummyDiv");
+		var container = document.getElementById("container_element");
+		var clone = div.cloneNode(true);
+		//clone.id = "elementDetail" + Math.trunc(Math.random() * 100);
+		clone.style.display = "inline-flex";
+		clone.classList.add("element_detail");
+
+		container.appendChild(clone);
+		//var div = clone.getElementById("id");
+	}
+	function removeFields(divValue) {
+		console.log("Container=======" + divValue);
+		divValue.parentElement.remove();
+	}
+
+	function createBPMN() {
+		var dropdowns = document.getElementsByClassName("element_detail");
+		var i;
+		var taskList=[];
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			var selector = openDropdown.querySelector("#type");
+			var taskName = openDropdown.querySelector("#elementName");
+			const task = new Map();
+			task.set("type",selector.options[selector.selectedIndex].value);
+			task.set("id",taskName.value);
+			console.log(task.get("id")+"  ======Container=======" + JSON.stringify(task));
+			taskList[i]=task;
+			console.log("Container=======" + taskList[i]);
+			}
+		console.log(JSON.stringify(taskList))
+		console.log("Container=======" + taskList);
+	}
+	
+</script>
+<style>
+/* CSS */
+body {
+	background-color: #FAF9F6;
+	margin: 50px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	font-family: monospace;
+}
+
+#headline {
+	border: 5px solid powderblue;
+	padding: 30px;
+	background-color: aliceblue;
+	font-weight: bolder;
+}
+
+#container {
+	padding: 30px;
+	background-color: powderblue;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+#container_element {
+	display: grid;
+}
+
+#add_submit {
+	display: inline-flex;
+}
+
+#addField, #submit, #remove {
+	display: flex;
+	align-items: center;
+	font-family: inherit;
+	font-weight: 500;
+	font-size: 16px;
+	padding: 0.7em 1.4em 0.7em 1.1em;
+	color: white;
+	background: #ad5389;
+	background: darkblue;
+	border: none;
+	box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+	letter-spacing: 0.05em;
+	border-radius: 5px;
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+#addField, #submit, #remove:hover {
+	box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+#addField, #submi, #removet:active {
+	box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+}
+
+#add_submit {
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.space {
+	margin: 10px;
+}
+
+.element_detail {
+	padding: 10px;
+	display: inline-flex;
+}
+
+#dummyDiv {
+	padding: 10px;
+	display: inline-flex;
+}
+
+#remove {
+	display: flex;
+	align-items: center;
+	font-family: inherit;
+	font-weight: 500;
+	font-size: 14px;
+	padding: 8px;
+	color: white;
+	background: #ad5389;
+	background: red;
+	border: none;
+	box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+	letter-spacing: 0.05em;
+	border-radius: 5px;
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+</style>
+</head>
+<body>
+
+	<div id="headline">Please Enter Workflow detail</div>
+	<div id="container">
+		<div id="container_element">
+			<div id="dummyDiv" style="display: none">
+				<label for="type">Select Element:</label> <select name="type"
+					id="type">
+					<option value="Start">Start</option>
+					<option value="End">End</option>
+					<option value="UserTask">User Task</option>
+					<option value="ServiceTask">Service Task</option>
+				</select><span class="space"></span> <label for="id">Name/Id :</label> <input
+					type="text" id="elementName"></input> <span class="space"></span><input
+					type="button" id="remove" onclick="removeFields(this)" value="X"></input>
+			</div>
+			<div id="elementDetail" class="element_detail">
+				<label for="type">Select Element:</label> <select name="type"
+					id="type">
+					<option value="Start">Start</option>
+					<option value="End">End</option>
+					<option value="UserTask">User Task</option>
+					<option value="ServiceTask">Service Task</option>
+				</select><span class="space"></span> <label for="id">Name/Id :</label> <input
+					type="text" id="elementName"></input> <span class="space"></span><input
+					type="button" id="remove" onclick="removeFields(this)" value="X"></input>
+			</div>
+		</div>
+		<div id="add_submit">
+			<input type="button" id="addField" onclick="addFields()"
+				value="Add Next Step"></input><span class="space"></span> <input
+				type="button" id="submit" value="Submit" onclick="createBPMN()"></input>
+		</div>
+	</div>
+</body>
+</html>

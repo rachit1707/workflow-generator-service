@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="definitions_17a5a531-1878-43bd-9668-e3dd0f07b813" targetNamespace="http://camunda.org/schema/1.0/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <process id="Automated_BPMN_0.22454921290727792" isExecutable="true">
+    <startEvent id="start" name="start">
+      <outgoing>start-CheckUserAccountExpiryStatus</outgoing>
+    </startEvent>
+    <serviceTask id="CheckUserAccountExpiryStatus" name="Check User Account Expiry Status">
+      <incoming>start-CheckUserAccountExpiryStatus</incoming>
+      <outgoing>CheckUserAccountExpiryStatus-RequestManagerApprovalforAccountExtension</outgoing>
+    </serviceTask>
+    <sequenceFlow id="start-CheckUserAccountExpiryStatus" sourceRef="start" targetRef="CheckUserAccountExpiryStatus"/>
+    <userTask id="RequestManagerApprovalforAccountExtension" name="Request Manager Approval for Account Extension">
+      <incoming>CheckUserAccountExpiryStatus-RequestManagerApprovalforAccountExtension</incoming>
+      <outgoing>RequestManagerApprovalforAccountExtension-UpdateAccountExpiryinDatabase</outgoing>
+    </userTask>
+    <sequenceFlow id="CheckUserAccountExpiryStatus-RequestManagerApprovalforAccountExtension" sourceRef="CheckUserAccountExpiryStatus" targetRef="RequestManagerApprovalforAccountExtension"/>
+    <serviceTask id="UpdateAccountExpiryinDatabase" name="Update Account Expiry in Database">
+      <incoming>RequestManagerApprovalforAccountExtension-UpdateAccountExpiryinDatabase</incoming>
+      <outgoing>UpdateAccountExpiryinDatabase-NotifyUseraboutAccountStatus</outgoing>
+    </serviceTask>
+    <sequenceFlow id="RequestManagerApprovalforAccountExtension-UpdateAccountExpiryinDatabase" sourceRef="RequestManagerApprovalforAccountExtension" targetRef="UpdateAccountExpiryinDatabase"/>
+    <serviceTask id="NotifyUseraboutAccountStatus" name="Notify User about Account Status">
+      <incoming>UpdateAccountExpiryinDatabase-NotifyUseraboutAccountStatus</incoming>
+      <outgoing>NotifyUseraboutAccountStatus-end</outgoing>
+    </serviceTask>
+    <sequenceFlow id="UpdateAccountExpiryinDatabase-NotifyUseraboutAccountStatus" sourceRef="UpdateAccountExpiryinDatabase" targetRef="NotifyUseraboutAccountStatus"/>
+    <endEvent id="end" name="end">
+      <incoming>NotifyUseraboutAccountStatus-end</incoming>
+    </endEvent>
+    <sequenceFlow id="NotifyUseraboutAccountStatus-end" sourceRef="NotifyUseraboutAccountStatus" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_35316a79-4e3c-45dd-a33c-48a8a0f8787a">
+    <bpmndi:BPMNPlane bpmnElement="Automated_BPMN_0.22454921290727792" id="BPMNPlane_76dfed81-9beb-4c67-aa7f-6b884e71aedb">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_eb3e7a64-6073-4d24-8e44-391461d1dc32">
+        <dc:Bounds height="30.0" width="30.0" x="50.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_c814cbf0-1049-4ced-aeaf-0b73b9f8dc42">
+          <dc:Bounds height="30.0" width="30.0" x="50.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CheckUserAccountExpiryStatus" id="BPMNShape_376e3f38-29fb-483b-a434-5fa3f4627449">
+        <dc:Bounds height="80.0" width="100.0" x="180.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_a7ee7412-3bc7-43c6-93d5-8f9f0a807653">
+          <dc:Bounds height="80.0" width="100.0" x="180.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="start-CheckUserAccountExpiryStatus" id="BPMNEdge_659a5b91-3c69-4dd5-b7f7-581951df49fb">
+        <di:waypoint x="80.0" y="125.0"/>
+        <di:waypoint x="180.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="RequestManagerApprovalforAccountExtension" id="BPMNShape_a2d4d866-a36e-4c53-b539-995945459930">
+        <dc:Bounds height="80.0" width="100.0" x="380.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_76ba89f8-ec88-4191-a89b-698489a8f799">
+          <dc:Bounds height="80.0" width="100.0" x="380.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="CheckUserAccountExpiryStatus-RequestManagerApprovalforAccountExtension" id="BPMNEdge_f6875478-cec2-4a77-ae2c-8efd8e118c34">
+        <di:waypoint x="280.0" y="125.0"/>
+        <di:waypoint x="380.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="UpdateAccountExpiryinDatabase" id="BPMNShape_f9867a41-1d28-4062-bcfb-c90adf4dc0c9">
+        <dc:Bounds height="80.0" width="100.0" x="580.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6b6be189-231d-44eb-8d6a-5e446197faf7">
+          <dc:Bounds height="80.0" width="100.0" x="580.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="RequestManagerApprovalforAccountExtension-UpdateAccountExpiryinDatabase" id="BPMNEdge_15839454-0816-4bab-9616-3fddce166bd2">
+        <di:waypoint x="480.0" y="125.0"/>
+        <di:waypoint x="580.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="NotifyUseraboutAccountStatus" id="BPMNShape_d9c86c59-f4df-485a-beb1-b55fa93f6f33">
+        <dc:Bounds height="80.0" width="100.0" x="780.0" y="80.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_17303114-8b9d-47dc-b0d0-33d598e28b41">
+          <dc:Bounds height="80.0" width="100.0" x="780.0" y="160.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="UpdateAccountExpiryinDatabase-NotifyUseraboutAccountStatus" id="BPMNEdge_87544427-c350-40a9-8a36-444f9b4ed994">
+        <di:waypoint x="680.0" y="125.0"/>
+        <di:waypoint x="780.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_fd3af63f-e475-4730-bcba-52c5cf459c62">
+        <dc:Bounds height="30.0" width="30.0" x="980.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_46bb37ad-8b27-4adf-a1b3-71947d3df478">
+          <dc:Bounds height="30.0" width="30.0" x="980.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="NotifyUseraboutAccountStatus-end" id="BPMNEdge_e1cdf07a-944d-44fc-97cb-91bf948add3e">
+        <di:waypoint x="880.0" y="125.0"/>
+        <di:waypoint x="980.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

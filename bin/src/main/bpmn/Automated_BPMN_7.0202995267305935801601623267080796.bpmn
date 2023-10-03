@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="definitions_6b0d426b-89fe-48c0-a37d-49d115adad83" targetNamespace="http://camunda.org/schema/1.0/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <process id="Automated_BPMN_7.020299526730593" isExecutable="true">
+    <startEvent id="start" name="start">
+      <outgoing>start-end</outgoing>
+    </startEvent>
+    <endEvent id="end" name="end">
+      <incoming>start-end</incoming>
+    </endEvent>
+    <sequenceFlow id="start-end" sourceRef="start" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_a54b19c8-8121-43bf-9613-15dd01379a9c">
+    <bpmndi:BPMNPlane bpmnElement="Automated_BPMN_7.020299526730593" id="BPMNPlane_5a61ae49-0173-402d-b11b-545b96ab7d60">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_a7c1e3c4-e5f1-445f-9e14-1f443e194a97">
+        <dc:Bounds height="30.0" width="30.0" x="50.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_da120d0c-8994-46e8-82c4-811b8b5eabaf">
+          <dc:Bounds height="30.0" width="30.0" x="50.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_847aac2f-e962-4114-a8f7-763cf5b612be">
+        <dc:Bounds height="30.0" width="30.0" x="180.0" y="100.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_e81e1205-350b-40bb-85b7-76b35238659a">
+          <dc:Bounds height="30.0" width="30.0" x="180.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="start-end" id="BPMNEdge_b7e597d7-c83c-454e-87d8-543621d40560">
+        <di:waypoint x="80.0" y="125.0"/>
+        <di:waypoint x="180.0" y="125.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
