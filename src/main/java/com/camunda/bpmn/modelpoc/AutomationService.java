@@ -14,6 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import kong.unirest.core.HttpResponse;
+import kong.unirest.core.JsonNode;
+import kong.unirest.core.Unirest;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
@@ -368,6 +371,14 @@ public class AutomationService {
 				"C:\\Users\\SharmaR59\\Documents\\BPMN"));
 		Bpmn.writeModelToFile(file, modelInstance);
 		System.out.println("=========modelInstance" + file.getPath());
+		HttpResponse<JsonNode> response = Unirest.post("https://your-domain.atlassian.net/rest/api/3/issue//attachments")
+				.basicAuth("email@example.com", "Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=")
+				.header("Accept", "application/json")
+				.header("X-Atlassian-Token", "no-check")
+				.field("file", new File(file.getPath()))
+				.asJson();
+
+		System.out.println("Attached file to jira : "+response.getBody());
 		return file.getPath();
 
 	}
