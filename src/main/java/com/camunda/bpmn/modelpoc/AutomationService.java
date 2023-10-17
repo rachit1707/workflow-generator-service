@@ -140,7 +140,7 @@ public class AutomationService {
 	/*
 	 * @info here we parse text with task name and type and map it to workflow map
 	 */
-	public String createBPMN(String chatGPTResponse) throws IOException {
+	public String createBPMN(String chatGPTResponse,String ticketId) throws IOException {
 		String instruction = null;
 		int taskAdded = 0;
 		System.out.println("=========chatGPTResponse==" + chatGPTResponse);
@@ -224,7 +224,7 @@ public class AutomationService {
 		System.out.println("-==================" + taskList.toString());
 		workflow.setWorkflowName("Automated_BPMN_" + Math.random() * 10);
 		workflow.setTasks(taskList);
-		return generateProcess(workflow);
+		return generateProcess(workflow,ticketId);
 	}
 
 	/*
@@ -233,7 +233,7 @@ public class AutomationService {
 	 * @info workflow contains workflow name,list of task to be generated logic for
 	 * creating element from list of task
 	 */
-	public static String generateProcess(Workflow workflow) throws IOException {
+	public static String generateProcess(Workflow workflow,String ticketId) throws IOException {
 		modelInstance = Bpmn.createEmptyModel();
 		// bpmn.createExecutableProcess();
 		Definitions definitions = modelInstance.newInstance(Definitions.class);
@@ -371,14 +371,16 @@ public class AutomationService {
 				"C:\\Users\\SharmaR59\\Documents\\BPMN"));
 		Bpmn.writeModelToFile(file, modelInstance);
 		System.out.println("=========modelInstance" + file.getPath());
-		HttpResponse<JsonNode> response = Unirest.post("https://your-domain.atlassian.net/rest/api/3/issue//attachments")
+		if(!ticketId.isBlank()||!ticketId.isEmpty()){
+
+		HttpResponse<JsonNode> response = Unirest.post("https://gno-poc.atlassian.net/rest/api/3/issue/"+ticketId+"/attachments")
 				.basicAuth("email@example.com", "Basic dHlwZXRvbWFoYW50ZXNoQGdtYWlsLmNvbTpBVEFUVDN4RmZHRjB4U3I0YXVOdmN2QXRDYk5Xa3NPem1PcDFGS25kaWNEVUtkR3FQM3FDaVVUZF9TTFAzYVJHWlBaWHRnZHhJZFhDMm05MVE3ZjdDMzlXTHRZeDJHam5oMDNUcEZlOXdNSURqd1lrbDVYMm5nckZrdnRrT1p6TkJ3Qm1HdjEzWWpCaTVLaTlxZ1hCbnJ1ajk4MnZHSjNnTDN0RU15dWJ2REFYMC1CQ0RXUEl6Vm89MzEwREJFMzg=")
 				.header("Accept", "application/json")
 				.header("X-Atlassian-Token", "no-check")
 				.field("file", new File(file.getPath()))
 				.asJson();
 
-		System.out.println("Attached file to jira : "+response.getBody());
+		System.out.println("Attached file to jira : "+response.getBody());}
 		return file.getPath();
 
 	}
